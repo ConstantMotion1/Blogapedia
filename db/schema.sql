@@ -1,0 +1,3 @@
+DROP DATABASE IF EXISTS blogApedia_db;
+
+CREATE DATABASE blogApedia_db;
