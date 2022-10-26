@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Blog } = require('../models/Blog');
+const { Blog, User } = require('../models');
 
 router.get('/', async (req, res) => {
     try {
@@ -9,13 +9,23 @@ router.get('/', async (req, res) => {
         blog.get({ plain: true })
     );
 
-        res.render('homepage', {
+        res.render('main', {
             displayBlogs,
+            loggedIn: req.session.loggedIn,
         });
         res.status(200).json(allBlogs)
     } catch (err) {
         res.status(500).json(err)
     }
 });
+
+router.get('/login', (req, res) => {
+    if (req.session.loggedIn) {
+      res.redirect('/');
+      return;
+    }
+  
+    res.render('login');
+  });
 
 module.exports = router;
