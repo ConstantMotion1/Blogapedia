@@ -11,7 +11,6 @@ router.post('/', async (req, res) => {
             addBlog,
             loggedIn: req.session.loggedIn,
         });
-        res.status(200).json(addBlog)
     } catch (err) {
         res.status(500).json(err)
     }

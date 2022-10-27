@@ -9,11 +9,10 @@ router.get('/', async (req, res) => {
         blog.get({ plain: true })
     );
 
-        res.render('main', {
+        res.render('homepage', {
             displayBlogs,
             loggedIn: req.session.loggedIn,
         });
-        res.status(200).json(allBlogs)
     } catch (err) {
         res.status(500).json(err)
     }

@@ -1,0 +1,50 @@
+<div class="row">
+  <div class="col-auto">
+    <h2>Welcome, {{username}}!</h2>
+  </div>
+</div>
+
+<div class="row mt-4">
+  <div class="col-md-6">
+    <h3>Add a new blog:</h3>
+
+    <form class="form new-blog-form">
+      <div class="form-group">
+        <label for="title">Title:</label>
+        <input class="form-input" type="text" id="title" name="title" />
+      </div>
+      <div class="form-group">
+        <label for="content">Content:</label>
+        <input class="form-input" type="number" id="content" name="content" />
+      </div>
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary">Create</button>
+      </div>
+    </form>
+  </div>
+
+  {{#if blog.length}}
+  <div class="col-md-6 blog-list">
+    <h3>Current Blogs:</h3>
+
+{{#each blogs as |blog|}}
+<div class="card">
+    <div class="card-header">
+      {{blog.post_title}}
+    </div>
+    <div class="card-body">
+      <blockquote class="blockquote mb-0">
+        <p>{{blog.post_content}}</p>
+        <footer class="blockquote-footer">Created By: <cite title="Source Title">{{blog.user.username}}</cite> on {{blog.post_created}}</footer>
+      </blockquote>
+      <div class="col-md-4">
+        <button class="btn btn-sm btn-danger" data-id="{{blog.id}}">DELETE</button>
+      </div>
+    </div>
+  </div>
+  {{/each}}
+  </div>
+  {{/if}}
+</div>
+
+<script src="./js/dashboard.js"></script>
