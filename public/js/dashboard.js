@@ -23,9 +23,10 @@ const newFormHandler = async (event) => {
   };
   
   const delButtonHandler = async (event) => {
+    console.log(event)
     if (event.target.hasAttribute('data-id')) {
       const id = event.target.getAttribute('data-id');
-  
+      console.log(id)
       const response = await fetch(`/api/myblogs/${id}`, {
         method: 'DELETE',
       });
@@ -37,12 +38,36 @@ const newFormHandler = async (event) => {
       }
     }
   };
+
+  // const updateButtonHandler = async (event) => {
+  //   console.log(event)
+  //   if (event.target.hasAttribute('data-id')) {
+  //     const id = event.target.getAttribute('data-id');
+  //     console.log(id)
+  //     const response = await fetch(`/update/${id}`, {
+  //       method: 'GET',
+  //     });
+  //     console.log(response)
+  //     if (response.ok) {
+  //       document.location.replace('/update');
+  //     } else {
+  //       alert('Failed to update blog');
+  //     }
+  //   }
+  // };
   
   document
     .querySelector('.new-blog-form')
     .addEventListener('submit', newFormHandler);
   
-  document
-    .querySelector('.blog-list')
-    .addEventListener('click', delButtonHandler);
+  // document
+  //   .querySelector('.blog-list')
+  //   .addEventListener('click', delButtonHandler);
+
+    [...document.querySelectorAll(".blog-list")].forEach((el) =>
+    el.addEventListener("click", delButtonHandler)
+  );
   
+//   [...document.querySelectorAll(".update-list")].forEach((el) =>
+//   el.addEventListener("click", updateButtonHandler)
+// );

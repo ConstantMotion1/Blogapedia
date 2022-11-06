@@ -1,4 +1,5 @@
-{{#each blogs as |blog|}}
+<div>
+{{#each displayBlogs as |blog| }}
 <div class="card">
     <div class="card-header">
       {{blog.post_title}}
@@ -8,8 +9,13 @@
         <p>{{blog.post_content}}</p>
         <footer class="blockquote-footer">Created By: <cite title="Source Title">{{blog.user.username}}</cite> on {{blog.post_created}}</footer>
       </blockquote>
+       <div class="col-md-4">
+        <button class="btn btn-sm btn-primary blog-list" data-id="{{blog.id}}">COMMENT</button>
+        <input class="form-input" type="text" id="comment" name="content" />
+      </div>
     </div>
   </div>
   {{/each}}
+</div>
 
   
