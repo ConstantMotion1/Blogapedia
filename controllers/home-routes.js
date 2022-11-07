@@ -1,13 +1,13 @@
 const router = require("express").Router();
-const { Blog, User } = require("../models");
+const { Blog, User, Comment } = require("../models");
 
 router.get("/", async (req, res) => {
   try {
-    const allBlogs = await Blog.findAll();
+    const allBlogs = await Blog.findAll({include: [{ model: User }]});
 
     const displayBlogs = allBlogs.map((blog) => blog.get({ plain: true }));
 
-    res.render("homepage", { displayBlogs, loggedIn: req.session.loggedIn });
+    res.render("homepage", { displayBlogs, loggedIn: req.session.loggedIn, username: req.session.username });
   } catch (err) {
     res.status(500).json(err);
   }
@@ -20,6 +20,18 @@ router.get("/update/:id", async (req, res) => {
     const updateBlogs = upBlogs.get({ plain: true });
 
     res.render("update", { updateBlogs, loggedIn: req.session.loggedIn });
+  } catch (err) {
+    res.status(500).json({message: 'helloworld'});
+  }
+});
+
+router.get("/viewblog/:id", async (req, res) => {
+  try {
+    const cmtBlogs = await Blog.findByPk(req.params.id, {include:[{ model: Comment }, { model: User}]});
+
+    const commentBlogs = cmtBlogs.get({ plain: true });
+
+    res.render("viewblog", { commentBlogs, loggedIn: req.session.loggedIn, post_comment:req.body.post_comment });
   } catch (err) {
     res.status(500).json({message: 'helloworld'});
   }
