@@ -27,11 +27,11 @@ router.get("/update/:id", async (req, res) => {
 
 router.get("/viewblog/:id", async (req, res) => {
   try {
-    const cmtBlogs = await Blog.findByPk(req.params.id, {include:[{ model: Comment }, { model: User}]});
+    const cmtBlogs = await Blog.findByPk(req.params.id, {include:[{ model: Comment, include:{model: User} }, { model: User}]});
 
     const commentBlogs = cmtBlogs.get({ plain: true });
-
-    res.render("viewblog", { commentBlogs, loggedIn: req.session.loggedIn, post_comment:req.body.post_comment });
+    console.log(commentBlogs)
+    res.render("viewblog", { commentBlogs, loggedIn: req.session.loggedIn });
   } catch (err) {
     res.status(500).json({message: 'helloworld'});
   }
