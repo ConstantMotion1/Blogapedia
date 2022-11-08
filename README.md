@@ -32,6 +32,8 @@ To use this application:
 
 The following is the link to the deployed application on Heroku:
 
+https://blogapedia.herokuapp.com/
+
 
 
 
